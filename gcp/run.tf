@@ -9,7 +9,7 @@ resource "google_cloud_run_v2_service" "juicebox" {
   }
   template {
     timeout         = "300s"
-    service_account = google_service_account.service_account.id
+    service_account = google_service_account.service_account.email
     volumes {
       name = "otel-config"
       secret {
