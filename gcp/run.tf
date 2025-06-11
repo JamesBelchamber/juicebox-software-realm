@@ -10,6 +10,17 @@ resource "google_cloud_run_v2_service" "juicebox" {
   template {
     timeout         = 300
     service_account = google_service_account.service_account.id
+    volumes {
+      name = "otel-config"
+      secret {
+        secret       = google_secret_manager_secret.opentelemetry_configuration.secret_id
+        default_mode = "0600"
+        items {
+          version = "latest"
+          path    = "configuration.yaml"
+        }
+      }
+    }
     containers {
       name = "jb-sw-realms"
       ports {
@@ -47,6 +58,13 @@ resource "google_cloud_run_v2_service" "juicebox" {
         name  = "REALM_ID"
         value = var.realm_id
       }
+      dynamic "env" {
+        for_each = var.juicebox_vars
+        content {
+          name  = each.key
+          value = each.value
+        }
+      }
     }
     containers {
       name = "otel-collector"
@@ -65,17 +83,16 @@ resource "google_cloud_run_v2_service" "juicebox" {
         }
       }
       image = "${var.otelcol_image_url}:${var.otelcol_image_version}"
-      env {
-        name  = "METRICS_ENDPOINT"
-        value = var.otelhttp_metrics_endpoint
+      volume_mounts {
+        name       = "otel-config"
+        mount_path = "/otel-collector"
       }
-      env {
-        name  = "LOGS_ENDPOINT"
-        value = var.otelhttp_logs_endpoint
-      }
-      env {
-        name  = "TRACES_ENDPOINT"
-        value = var.otelhttp_traces_endpoint
+      dynamic "env" {
+        for_each = var.otelcol_vars
+        content {
+          name  = each.key
+          value = each.value
+        }
       }
     }
   }

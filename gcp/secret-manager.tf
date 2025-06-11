@@ -23,3 +23,27 @@ resource "google_secret_manager_secret_iam_binding" "access" {
     "serviceAccount:${google_service_account.service_account.email}"
   ]
 }
+
+resource "google_secret_manager_secret" "opentelemetry_configuration" {
+  project   = var.project_id
+  secret_id = "jb-sw-${random_pet.suffix.id}-otel-config"
+  replication {
+    auto {}
+  }
+}
+
+resource "google_secret_manager_secret_version" "opentelemetry_configuration" {
+  secret      = google_secret_manager_secret.opentelemetry_configuration.id
+  secret_data = var.otelcol_config_b64
+}
+
+resource "google_secret_manager_secret_iam_binding" "opentelemetry_configuration" {
+  for_each  = var.tenant_secrets
+  project   = var.project_id
+  secret_id = google_secret_manager_secret.opentelemetry_configuration.id
+  role      = "roles/secretmanager.secretAccessor"
+
+  members = [
+    "serviceAccount:${google_service_account.service_account.email}"
+  ]
+}
