@@ -1,6 +1,6 @@
 resource "google_bigtable_instance" "instance" {
   project      = var.project_id
-  name         = "jb-sw-realms"
+  name         = "jb-sw-realms-${random_pet.suffix.id}"
   display_name = "Juicebox Software Realms"
 
   cluster {

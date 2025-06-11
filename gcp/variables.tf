@@ -23,13 +23,40 @@ variable "tenant_secrets" {
   type        = map(string)
 }
 
-variable "image_url" {
+variable "juicebox_image_url" {
   description = "The url of the juicebox docker image"
   type        = string
 }
 
-variable "image_version" {
-  description = "The version of the juicebox docker image in the repository"
+variable "juicebox_image_version" {
+  description = "The version of the juicebox docker image"
   type        = string
   default     = "latest"
+}
+
+variable "otelcol_image_url" {
+  description = "The url of the opentelemetry collector docker image"
+  type        = string
+  default     = "ghcr.io/open-telemetry/opentelemetry-collector-releases/opentelemetry-collector-otlp"
+}
+
+variable "otelcol_image_version" {
+  description = "The version of the opentelemetry collector docker image"
+  type        = string
+  default     = "latest"
+}
+
+variable "otelhttp_metrics_endpoint" {
+  description = "The endpoint for shipping OpenTelemetry Metrics over HTTP"
+  type        = string
+}
+
+variable "otelhttp_logs_endpoint" {
+  description = "The endpoint for shipping OpenTelemetry Logs over HTTP"
+  type        = string
+}
+
+variable "otelhttp_traces_endpoint" {
+  description = "The endpoint for shipping OpenTelemetry Traces over HTTP"
+  type        = string
 }

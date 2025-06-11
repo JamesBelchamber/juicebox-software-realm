@@ -1,7 +1,7 @@
 resource "google_secret_manager_secret" "secret" {
   for_each  = var.tenant_secrets
   project   = var.project_id
-  secret_id = "jb-sw-tenant-${each.key}"
+  secret_id = "jb-sw-${random_pet.suffix.id}-tenant-${each.key}"
   replication {
     auto {}
   }

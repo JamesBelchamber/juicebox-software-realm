@@ -3,58 +3,30 @@ receivers:
     protocols:
       grpc:
         endpoint: localhost:4317
-  hostmetrics:
-    collection_interval: 10s
-    scrapers:
-      paging:
-        metrics:
-          system.paging.utilization:
-            enabled: true
-      cpu:
-        metrics:
-          system.cpu.utilization:
-            enabled: true
-      disk:
-      filesystem:
-        metrics:
-          system.filesystem.utilization:
-            enabled: true
-      load:
-      memory:
-      network:
-      processes:
 
 processors:
   batch:
     send_batch_max_size: 100
     send_batch_size: 10
     timeout: 10s
-  attributes/dd:
-    actions:
-      - key: env
-        action: insert
-        value: ${env:DD_ENV_NAME}
 
 exporters:
-  datadog:
-    api:
-      site: ${env:DD_SITE}
-      key: ${env:DD_API_KEY}
-    host_metadata:
-      tags:
-        - realm:${env:REALM_ID}
+  otlphttp:
+    metrics_endpoint: ${env:METRICS_ENDPOINT}
+    logs_endpoint: ${env:LOGS_ENDPOINT}
+    traces_endpoint: ${env:TRACES_ENDPOINT}
 
 service:
   pipelines:
     metrics:
-      receivers: [hostmetrics, otlp]
-      processors: [attributes/dd,batch]
-      exporters: [datadog]
-    traces:
       receivers: [otlp]
-      processors: [attributes/dd,batch]
-      exporters: [datadog]
+      processors: [batch]
+      exporters: [otlphttp]
     logs:
       receivers: [otlp]
-      processors: [attributes/dd,batch]
-      exporters: [datadog]
+      processors: [batch]
+      exporters: [otlphttp]
+    traces:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [otlphttp]
