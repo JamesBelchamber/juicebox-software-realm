@@ -18,9 +18,10 @@ resource "google_project_service" "pub_sub" {
 }
 
 resource "google_service_account" "service_account" {
-  account_id   = "jb-sw-realms-${random_pet.suffix.id}"
-  display_name = "Juicebox Software Realms (${random_pet.suffix.id})"
+  account_id   = "jb-sw-realms-${random_id.suffix.id}"
+  display_name = "Juicebox Software Realms (${random_id.suffix.id})"
 }
 
-resource "random_pet" "suffix" {
+resource "random_id" "suffix" {
+  byte_length = 8
 }
