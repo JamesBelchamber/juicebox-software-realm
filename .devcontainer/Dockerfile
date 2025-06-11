@@ -1,5 +1,5 @@
 # Dockerfile
-FROM docker.io/golang:1.22.6
+FROM docker.io/golang:latest
 
 RUN apt-get update &&\
     apt-get upgrade -y &&\
@@ -16,6 +16,6 @@ RUN curl --proto '=https' --tlsv1.2 -fsSL https://get.opentofu.org/install-opent
     rm -f install-opentofu.sh &&\
     apt-get clean
 
-RUN curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
+RUN mkdir -p /usr/local/bin && apt-get update && apt-get install -y unzip && curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
 
-RUN curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sudo sh -s -- -b /usr/local/bin
+RUN curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin
