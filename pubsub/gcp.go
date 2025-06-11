@@ -88,11 +88,11 @@ func (c *gcpPubSub) Publish(ctx context.Context, realm types.RealmID, tenant str
 	return nil
 }
 
-func (c *gcpPubSub) Pull(ctx context.Context, realm types.RealmID, tenant string, max uint16) ([]responses.TenantLogEntry, error) {
+func (c *gcpPubSub) Pull(ctx context.Context, realm types.RealmID, tenant string, maxMessages uint16) ([]responses.TenantLogEntry, error) {
 	resp, err := c.subClient.Pull(ctx, &pubsubpb.PullRequest{
 		Subscription:      subscriptionName(c.project, realm, tenant),
 		ReturnImmediately: false,
-		MaxMessages:       int32(max),
+		MaxMessages:       int32(maxMessages),
 	})
 	if errorHasCode(err, codes.NotFound) {
 		err = c.createTopicAndSub(ctx, realm, tenant)
