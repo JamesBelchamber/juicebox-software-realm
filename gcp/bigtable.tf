@@ -1,10 +1,10 @@
 resource "google_bigtable_instance" "instance" {
   project      = var.project_id
   name         = "jb-sw-realms-${random_pet.suffix.id}"
-  display_name = "Juicebox Software Realms"
+  display_name = "Juicebox Software Realms (${random_pet.suffix.id})"
 
   cluster {
-    cluster_id = "jb-sw-realms-cluster"
+    cluster_id = "jb-sw-realms-cluster-${random_pet.suffix.id}"
     zone       = "${var.region}-${var.zone}"
     autoscaling_config {
       min_nodes  = 1

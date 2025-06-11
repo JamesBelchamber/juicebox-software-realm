@@ -37,9 +37,7 @@ variable "juicebox_image_version" {
 variable "juicebox_vars" {
   description = "Environment variables for the juicebox container"
   type        = map(string)
-  default = {
-    "foo" = "bar"
-  }
+  default     = {}
 }
 
 variable "otelcol_image_url" {
@@ -64,7 +62,5 @@ variable "otelcol_config_b64" {
 variable "otelcol_vars" {
   description = "Environment variables for the juicebox container"
   type        = map(string)
-  default = {
-    "foo" = "bar"
-  }
+  default     = {}
 }

@@ -84,8 +84,8 @@ resource "google_cloud_run_v2_service" "juicebox" {
       }
       image = "${var.otelcol_image_url}:${var.otelcol_image_version}"
       volume_mounts {
-        name       = "otel-config"
-        mount_path = "/otel-collector"
+        name       = "config.yaml"
+        mount_path = "/etc/otelcol-contrib/"
       }
       dynamic "env" {
         for_each = var.otelcol_vars
@@ -101,6 +101,22 @@ resource "google_cloud_run_v2_service" "juicebox" {
 resource "google_project_iam_binding" "logs_writer_binding" {
   project = var.project_id
   role    = "roles/logging.logWriter"
+  members = [
+    "serviceAccount:${google_service_account.service_account.email}"
+  ]
+}
+
+resource "google_project_iam_binding" "metrics_writer_binding" {
+  project = var.project_id
+  role    = "roles/monitoring.metricWriter"
+  members = [
+    "serviceAccount:${google_service_account.service_account.email}"
+  ]
+}
+
+resource "google_project_iam_binding" "cloud_trace_agent_binding" {
+  project = var.project_id
+  role    = "roles/cloudtrace.agent"
   members = [
     "serviceAccount:${google_service_account.service_account.email}"
   ]
