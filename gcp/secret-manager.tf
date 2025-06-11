@@ -1,7 +1,7 @@
 resource "google_secret_manager_secret" "secret" {
   for_each  = var.tenant_secrets
   project   = var.project_id
-  secret_id = "jb-sw-${random_id.suffix.id}-tenant-${each.key}"
+  secret_id = "jb-sw-${random_string.suffix.id}-tenant-${each.key}"
   replication {
     auto {}
   }
@@ -26,7 +26,7 @@ resource "google_secret_manager_secret_iam_binding" "access" {
 
 resource "google_secret_manager_secret" "opentelemetry_configuration" {
   project   = var.project_id
-  secret_id = "jb-sw-${random_id.suffix.id}-otel-config"
+  secret_id = "jb-sw-${random_string.suffix.id}-otel-config"
   replication {
     auto {}
   }
