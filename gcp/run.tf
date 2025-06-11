@@ -8,7 +8,7 @@ resource "google_cloud_run_v2_service" "juicebox" {
     min_instance_count = 4
   }
   template {
-    timeout         = "300"
+    timeout         = "300s"
     service_account = google_service_account.service_account.id
     volumes {
       name = "otel-config"
