@@ -61,8 +61,8 @@ resource "google_cloud_run_v2_service" "juicebox" {
       dynamic "env" {
         for_each = var.juicebox_vars
         content {
-          name  = each.key
-          value = each.value
+          name  = env.key
+          value = env.value
         }
       }
     }
@@ -90,8 +90,8 @@ resource "google_cloud_run_v2_service" "juicebox" {
       dynamic "env" {
         for_each = var.otelcol_vars
         content {
-          name  = each.key
-          value = each.value
+          name  = env.key
+          value = env.value
         }
       }
     }
