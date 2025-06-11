@@ -1,7 +1,7 @@
 resource "google_bigtable_instance" "instance" {
   project      = var.project_id
   name         = "jb-sw-realms-${random_string.suffix.id}"
-  display_name = "Juicebox Software Realms (${random_string.suffix.id})"
+  display_name = "JB Software Realms (${random_string.suffix.id})"
 
   cluster {
     cluster_id = "jb-sw-realms-cluster-${random_string.suffix.id}"
