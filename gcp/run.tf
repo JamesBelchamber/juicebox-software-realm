@@ -14,7 +14,7 @@ resource "google_cloud_run_v2_service" "juicebox" {
       name = "otel-config"
       secret {
         secret       = google_secret_manager_secret.opentelemetry_configuration.secret_id
-        default_mode = "0600"
+        default_mode = "600"
         items {
           version = "latest"
           path    = "configuration.yaml"
