@@ -84,7 +84,7 @@ resource "google_cloud_run_v2_service" "juicebox" {
       }
       image = "${var.otelcol_image_url}:${var.otelcol_image_version}"
       volume_mounts {
-        name       = "config.yaml"
+        name       = "otel-config"
         mount_path = "/etc/otelcol-contrib/"
       }
       dynamic "env" {
