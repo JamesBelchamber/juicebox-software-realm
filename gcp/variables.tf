@@ -31,7 +31,6 @@ variable "juicebox_image_url" {
 variable "juicebox_image_version" {
   description = "The version of the juicebox docker image"
   type        = string
-  default     = "latest"
 }
 
 variable "juicebox_vars" {
@@ -43,13 +42,11 @@ variable "juicebox_vars" {
 variable "otelcol_image_url" {
   description = "The url of the opentelemetry collector docker image"
   type        = string
-  default     = "ghcr.io/open-telemetry/opentelemetry-collector-releases/opentelemetry-collector-contrib"
 }
 
 variable "otelcol_image_version" {
   description = "The version of the opentelemetry collector docker image"
   type        = string
-  default     = "latest"
 }
 
 variable "otelcol_config_b64" {
