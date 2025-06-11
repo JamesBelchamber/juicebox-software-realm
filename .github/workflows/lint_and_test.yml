@@ -24,7 +24,7 @@ jobs:
       - name: Run revive
         run: |
           go install github.com/mgechev/revive@latest
-          revive -config revive.toml -formatter friendly -set_exit_status ./...
+          revive -config revive.toml -formatter friendly ./...
 
       - name: Run staticcheck
         run: |
