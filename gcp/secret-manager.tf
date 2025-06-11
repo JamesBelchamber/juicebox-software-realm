@@ -34,7 +34,7 @@ resource "google_secret_manager_secret" "opentelemetry_configuration" {
 
 resource "google_secret_manager_secret_version" "opentelemetry_configuration" {
   secret      = google_secret_manager_secret.opentelemetry_configuration.id
-  secret_data = var.otelcol_config_b64
+  secret_data = base64decode(var.otelcol_config_b64)
 }
 
 resource "google_secret_manager_secret_iam_binding" "opentelemetry_configuration" {
