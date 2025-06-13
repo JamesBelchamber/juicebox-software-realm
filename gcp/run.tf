@@ -16,7 +16,7 @@ resource "google_cloud_run_v2_service" "juicebox" {
         secret = google_secret_manager_secret.opentelemetry_configuration.secret_id
         items {
           version = "latest"
-          path    = "configuration.yaml"
+          path    = "config.yaml"
         }
       }
     }
