@@ -113,11 +113,11 @@ resource "google_project_iam_binding" "cloud_trace_agent_binding" {
   ]
 }
 
-
-resource "google_project_iam_binding" "cloud_run_unauthenticated_invocations" {
+resource "google_cloud_run_v2_service_iam_binding" "allow_unauthenticated_users" {
   project = var.project_id
+  name    = google_cloud_run_v2_service.juicebox.name
   role    = "roles/run.invoker"
   members = [
-    "allUsers"
+    "allUsers",
   ]
 }
