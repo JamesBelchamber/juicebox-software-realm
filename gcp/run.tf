@@ -73,14 +73,6 @@ resource "google_cloud_run_v2_service" "juicebox" {
           memory = "512Mi"
         }
       }
-      startup_probe {
-        timeout_seconds   = 240
-        period_seconds    = 240
-        failure_threshold = 1
-        http_get {
-          port = 13133
-        }
-      }
       image = "${var.otelcol_image_url}:${var.otelcol_image_version}"
       volume_mounts {
         name       = "otel-config"
