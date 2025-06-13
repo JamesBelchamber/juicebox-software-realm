@@ -62,12 +62,12 @@ func (c *memPubSub) Publish(_ context.Context, realm types.RealmID, tenant strin
 	return nil
 }
 
-func (c *memPubSub) Pull(_ context.Context, realm types.RealmID, tenant string, max uint16) ([]responses.TenantLogEntry, error) {
+func (c *memPubSub) Pull(_ context.Context, realm types.RealmID, tenant string, maxMessages uint16) ([]responses.TenantLogEntry, error) {
 	k := key(realm, tenant)
 	c.lock.Lock()
 	defer c.lock.Unlock()
 	messages := c.events[k]
-	max = min(max, uint16(len(messages)))
-	results := append([]responses.TenantLogEntry{}, messages[:max]...)
+	maxMessages = min(maxMessages, uint16(len(messages)))
+	results := append([]responses.TenantLogEntry{}, messages[:maxMessages]...)
 	return results, nil
 }

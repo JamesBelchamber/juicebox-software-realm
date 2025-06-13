@@ -1,0 +1,16 @@
+{
+    "name": "Juicebox Software Realm",
+    "dockerFile": "Dockerfile",
+    "features": {
+        "ghcr.io/devcontainers-extra/features/pre-commit:2": {},
+        "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {},
+        "ghcr.io/devcontainers/features/common-utils": {
+            "installZsh": true,
+            "installOhMyZsh": true,
+            "installOhMyZshConfig": true,
+            "configureZshAsDefaultShell": true,
+            "upgradePackages": true
+        }
+    },
+    "postCreateCommand": "bash .devcontainer/post-create.sh"
+}

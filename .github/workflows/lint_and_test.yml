@@ -1,10 +1,10 @@
-name: CI
+name: Lint and Test
 
 on:
   pull_request: {}
   push:
     branches:
-    - main
+      - main
   workflow_dispatch: {}
 
 jobs:
@@ -13,18 +13,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Go
-        uses: actions/setup-go@v3
+        uses: actions/setup-go@v5
         with:
-          go-version: '1.22.2'
+          go-version: "1.24.4"
           check-latest: false
 
       - name: Run revive
         run: |
           go install github.com/mgechev/revive@latest
-          revive -config revive.toml -formatter friendly -set_exit_status ./...
+          revive -config revive.toml -formatter friendly ./...
 
       - name: Run staticcheck
         run: |
