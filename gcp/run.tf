@@ -43,7 +43,7 @@ resource "google_cloud_run_v2_service" "juicebox" {
       image = "${var.juicebox_image_url}:${var.juicebox_image_version}"
       env {
         name  = "BIGTABLE_INSTANCE_ID"
-        value = google_bigtable_instance.instance.id
+        value = google_bigtable_instance.instance.name
       }
       env {
         name  = "GCP_PROJECT_ID"
