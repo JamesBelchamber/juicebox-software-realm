@@ -112,3 +112,12 @@ resource "google_project_iam_binding" "cloud_trace_agent_binding" {
     "serviceAccount:${google_service_account.service_account.email}"
   ]
 }
+
+
+resource "google_project_iam_binding" "cloud_run_unauthenticated_invocations" {
+  project = var.project_id
+  role    = "roles/run.invoker"
+  members = [
+    "allUsers"
+  ]
+}
