@@ -1,7 +1,6 @@
 # Define a custom role with the specific pub/sub perms needed.
 resource "google_project_iam_custom_role" "pubsub_role" {
-  project     = var.project_id
-  role_id     = "jb_sw_realms_pubsub_role_${random_string.suffix.id}"
+  role_id     = "pubsub_role"
   title       = "Role for managing pub/sub from a software realm"
   description = "Role for managing pub/sub from a software realm"
   permissions = ["pubsub.subscriptions.create",

@@ -1,10 +1,9 @@
 resource "google_bigtable_instance" "instance" {
-  project      = var.project_id
-  name         = "jb-sw-realms-${random_string.suffix.id}"
-  display_name = "JB Software Realms (${random_string.suffix.id})"
+  name         = "jb-sw-realms"
+  display_name = "JB Software Realms"
 
   cluster {
-    cluster_id = "jb-sw-realms-cluster-${random_string.suffix.id}"
+    cluster_id = "jb-sw-realms-cluster"
     zone       = "${var.region}-${var.zone}"
     autoscaling_config {
       min_nodes  = 1
@@ -15,7 +14,6 @@ resource "google_bigtable_instance" "instance" {
 }
 
 resource "google_bigtable_instance_iam_binding" "access" {
-  project  = var.project_id
   instance = google_bigtable_instance.instance.name
   role     = "roles/bigtable.admin"
 

@@ -1,6 +1,6 @@
 # Create Cloud Run Service
 resource "google_cloud_run_v2_service" "juicebox" {
-  name                = "juicebox-${random_string.suffix.id}"
+  name                = "juicebox"
   location            = var.region
   deletion_protection = false
   ingress             = "INGRESS_TRAFFIC_ALL"
