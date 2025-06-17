@@ -1,6 +1,6 @@
 resource "google_bigtable_instance" "instance" {
   name         = "jb-sw-realms"
-  display_name = "JB Software Realms"
+  display_name = "Juicebox Software Realms"
 
   cluster {
     cluster_id = "jb-sw-realms-cluster"
